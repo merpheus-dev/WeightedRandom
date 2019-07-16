@@ -2,9 +2,9 @@
 Allows you to get generic biased random selections depending on provided weight.
 
 **Best part of this randomizer is, it doesn't require to provide 100% total. 
-It auto-calculates weights regarding to your weights**
+It auto-calculates weights regarding to your weights.**
 
-So you can pass  _Add->80%-Zombie_ _Add->70%-Zombie_ in the same total.
+So you can pass  _Add->80%-Tremors _Add->70%-Zombies_ in the same total.
 
 ## Usage
 Simple example:
