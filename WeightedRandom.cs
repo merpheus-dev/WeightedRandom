@@ -3,7 +3,7 @@ using System.Linq;
 using System;
 namespace Subtegral.WeightedRandom
 {
-    public class WeightedRandom<T>
+    public sealed class WeightedRandom<T>
     {
         private Dictionary<T, float> probabiltyTable = new Dictionary<T, float>();
         private List<KeyValuePair<T, float>> sortedPair;
