@@ -31,3 +31,7 @@ Weight providers are basically random api's which have provided by Unity and C#(
 - *SystemRandomProvider:* Uses System.Random implementation
 - *UnityEngineRandomProvider:* Uses UnityEngine.Random.Range implementation
 - *UnityMathematicsRandomProvider:* Uses Unity's new SIMD math library with Unity.Random implementation
+
+## TO-DO
+- AddRange for multiple queries at once.
+- GetInstance() implementation on other providers with _T where:class_
