@@ -1,20 +1,22 @@
 ﻿using System;
-namespace Subtegral.WeightedRandom
+
+namespace WeightedRandom
 {
     /// <summary>
     /// Uses SIMD Instructions to calculate
     /// </summary>
     public class UnityMathematicsRandomProvider : AbstractRandomProvider
     {
-        private Random randomCache;
-        public override void Construct()
+        private Random _randomCache;
+
+        protected override void Construct()
         {
-            randomCache = new Random();
+            _randomCache = new Random();
         }
 
         public override double GetRandom()
         {
-            return randomCache.NextDouble();
+            return _randomCache.NextDouble();
         }
     }
 }

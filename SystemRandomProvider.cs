@@ -1,20 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System;
+﻿using System;
 
-namespace Subtegral.WeightedRandom
+namespace WeightedRandom
 {
     public class SystemRandomProvider : AbstractRandomProvider
     {
-        private Random randomCache;
-        public override void Construct()
+        private Random _randomCache;
+
+        protected override void Construct()
         {
-            randomCache = new Random();
+            _randomCache = new Random();
         }
 
         public override double GetRandom()
         {
-            return randomCache.NextDouble();
+            return _randomCache.NextDouble();
         }
 
         public static SystemRandomProvider GetInstance()

@@ -1,62 +1,65 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using System;
-namespace Subtegral.WeightedRandom
+
+namespace WeightedRandom
 {
     public sealed class WeightedRandom<T>
     {
-        private Dictionary<T, float> probabiltyTable = new Dictionary<T, float>();
-        private List<KeyValuePair<T, float>> sortedPair;
+        private Dictionary<T, float> _probabiltyTable = new Dictionary<T, float>();
+        private List<KeyValuePair<T, float>> _sortedPair;
         private WeightAlgorithm algorithm;
-        private AbstractRandomProvider randomProvider;
+        private AbstractRandomProvider _randomProvider;
 
         #region Constructors
         public WeightedRandom() : this(new SystemRandomProvider(), WeightAlgorithm.FairBiased) { }
-        public WeightedRandom(WeightAlgorithm algorithm)
+
+        private WeightedRandom(WeightAlgorithm algorithm)
         {
-            randomProvider = new SystemRandomProvider();
+            _randomProvider = new SystemRandomProvider();
             this.algorithm = algorithm;
         }
         public WeightedRandom(AbstractRandomProvider provider) : this(WeightAlgorithm.FairBiased)
         {
-            randomProvider = provider ?? throw new Exception("Random provider is not instantiated.");
+            _randomProvider = provider ?? throw new Exception("Random provider is not instantiated.");
         }
-        public WeightedRandom(AbstractRandomProvider provider, WeightAlgorithm algorithm)
+
+        private WeightedRandom(AbstractRandomProvider provider, WeightAlgorithm algorithm)
         {
-            randomProvider = provider ?? throw new Exception("Random provider is not instantiated.");
+            _randomProvider = provider ?? throw new Exception("Random provider is not instantiated.");
             this.algorithm = algorithm;
         }
         #endregion
 
         public void Add(T val, float probability)
         {
-            probabiltyTable.Add(val, probability);
-            sortedPair = probabiltyTable.OrderBy(i => i.Value).ToList();
+            _probabiltyTable.Add(val, probability);
+            _sortedPair = _probabiltyTable.OrderBy(i => i.Value).ToList();
         }
 
         public T Next()
         {
-            if (sortedPair == null || sortedPair.Count == 0)
+            if (_sortedPair == null || _sortedPair.Count == 0)
                 throw new Exception("No elements added to probability calculation!");
 
-            float totalProbability = sortedPair.Sum(x => x.Value);
-            double randomValue = randomProvider.GetRandom() * totalProbability;
-            for (var i = 0; i < sortedPair.Count; i++)
+            float totalProbability = _sortedPair.Sum(x => x.Value);
+            double randomValue = _randomProvider.GetRandom() * totalProbability;
+            for (var i = 0; i < _sortedPair.Count; i++)
             {
                 //TO-DO:Implement an algorithm factory and decouple it from here.
                 if (algorithm == WeightAlgorithm.FairBiased)
                 {
 
-                    randomValue -= sortedPair[i].Value;
+                    randomValue -= _sortedPair[i].Value;
                     if (randomValue <= 0)
-                        return sortedPair[i].Key;
+                        return _sortedPair[i].Key;
                 }
                 else
                 {
-                    if (randomValue < sortedPair[i].Value)
-                        return sortedPair[i].Key;
+                    if (randomValue < _sortedPair[i].Value)
+                        return _sortedPair[i].Key;
 
-                    randomValue -= sortedPair[i].Value;
+                    randomValue -= _sortedPair[i].Value;
                 }
 
             }

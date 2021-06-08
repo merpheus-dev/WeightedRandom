@@ -1,11 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-namespace Subtegral.WeightedRandom
+﻿using UnityEngine;
+
+namespace WeightedRandom
 {
     public class UnityEngineRandomProvider : AbstractRandomProvider
     {
-        public override void Construct() { }
+        protected override void Construct() { }
 
         public override double GetRandom()
         {

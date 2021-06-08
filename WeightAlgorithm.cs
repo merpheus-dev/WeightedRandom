@@ -1,4 +1,4 @@
-﻿namespace Subtegral.WeightedRandom
+﻿namespace WeightedRandom
 {
     public enum WeightAlgorithm
     {
