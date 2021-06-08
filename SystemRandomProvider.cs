@@ -1,10 +1,10 @@
-﻿using System;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System;
+
 namespace Subtegral.WeightedRandom
 {
-    /// <summary>
-    /// Uses SIMD Instructions to calculate
-    /// </summary>
-    public class UnityMathematicsRandomProvider : AbstractRandomProvider
+    public class SystemRandomProvider : AbstractRandomProvider
     {
         private Random randomCache;
         public override void Construct()
@@ -16,5 +16,10 @@ namespace Subtegral.WeightedRandom
         {
             return randomCache.NextDouble();
         }
-    }
+
+        public static SystemRandomProvider GetInstance()
+        {
+            return new SystemRandomProvider();
+        }
+    } 
 }
